@@ -50,10 +50,12 @@ class CreateUserService {
     try {
       const networkObj = await connectToNetwork.execute();
       const args = [CPF];
-      await networkObj.contract.submitTransaction(
+      const response = await networkObj.contract.submitTransaction(
         'createHealthPacientes',
         ...args,
       );
+
+      console.log(response.toString());
     } catch (error) {
       throw new AppError(error);
     }
