@@ -7,7 +7,7 @@ import ConnectToNetwork from '@shared/infra/Fabric/ConnectToNetwork';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IMetricsRepository from '@modules/metrics/repositories/IMetricsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import IResponseTransaction from '../dtos/IResponseTransaction';
+import IResponseTransaction from '@shared/dtos/IResponseTransaction';
 
 interface IRequestDTO {
   user_id: string;

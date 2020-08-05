@@ -15,6 +15,7 @@ class ShowMetricsUserService {
   public async execute(user_id: string): Promise<Metrics[]> {
     try {
       const metrics = await this.metricsRepository.findByUserId(user_id);
+
       return metrics;
     } catch (error) {
       throw new AppError(
