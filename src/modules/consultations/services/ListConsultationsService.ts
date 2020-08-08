@@ -12,19 +12,15 @@ interface IRequest {
 }
 
 interface IResponse {
-  asset: {
-    consultas: [
-      {
-        data: string;
-        especialidade: string;
-        medico: string;
-      },
-    ];
-  };
+  data: string;
+  especialidade: string;
+  medico: string;
 }
 
 interface IResponseTransaction {
-  asset: IResponse[];
+  asset: {
+    consultas: IResponse[];
+  };
   transactionExecutionTime: number;
 }
 
@@ -79,7 +75,7 @@ class ListConsultationsService {
           throw new AppError('Erro ao salvar dados de métricas de desempenho!');
         }
 
-        consultations = asset;
+        consultations = asset.consultas;
 
         await this.cacheProvider.save(cacheKey, consultations);
       } catch (error) {
