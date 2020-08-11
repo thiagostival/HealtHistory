@@ -32,6 +32,9 @@ class Metrics {
   transaction_time: string;
 
   @Column()
+  time_total: string;
+
+  @Column()
   observation: string;
 
   @CreateDateColumn()

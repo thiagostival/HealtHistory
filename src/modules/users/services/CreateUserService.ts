@@ -2,7 +2,6 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import ConnectToNetwork from '@shared/infra/Fabric/ConnectToNetwork';
-import IMetricsRepository from '@modules/metrics/repositories/IMetricsRepository';
 import IResponseTransaction from '@shared/dtos/IResponseTransaction';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
@@ -22,9 +21,6 @@ class CreateUserService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
-    @inject('MetricsRepository')
-    private metricsRepository: IMetricsRepository,
-
     @inject('HashProvider')
     private hashProvider: IHashProvider,
   ) {}
@@ -34,9 +30,10 @@ class CreateUserService {
     name,
     email,
     password,
-  }: IRequest): Promise<User> {
+  }: IRequest): Promise<{ time: number; user: User }> {
     const checkUserEmailExists = await this.usersRepository.findByEmail(email);
     const checkUserCPFExists = await this.usersRepository.findByCPF(CPF);
+    let time = 0;
 
     if (checkUserEmailExists) {
       throw new AppError('Email address already used!');
@@ -68,23 +65,12 @@ class CreateUserService {
       const { transactionExecutionTime }: IResponseTransaction = JSON.parse(
         responseTransaction.toString(),
       );
-
-      try {
-        const user_id = user.id;
-        await this.metricsRepository.create({
-          user_id,
-          transaction_name: 'Criar usuário',
-          transaction_time: `${transactionExecutionTime} ms`,
-          observation: 'Transação na blockchain',
-        });
-      } catch (error) {
-        throw new AppError('Erro ao salvar dados de métricas de desempenho!');
-      }
+      time = transactionExecutionTime;
     } catch (error) {
       throw new AppError(error);
     }
 
-    return user;
+    return { time, user };
   }
 }
 

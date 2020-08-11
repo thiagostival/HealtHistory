@@ -4,7 +4,6 @@ import AppError from '@shared/errors/AppError';
 import ConnectToNetwork from '@shared/infra/Fabric/ConnectToNetwork';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import IMetricsRepository from '@modules/metrics/repositories/IMetricsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
@@ -15,6 +14,7 @@ interface IResponse {
   data: string;
   especialidade: string;
   medico: string;
+  observation: string;
 }
 
 interface IResponseTransaction {
@@ -30,19 +30,25 @@ class ListConsultationsService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
-    @inject('MetricsRepository')
-    private metricsRepository: IMetricsRepository,
-
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ user_id }: IRequest): Promise<IResponse[] | null> {
+  public async execute({
+    user_id,
+  }: IRequest): Promise<{
+    observation: string;
+    time: number;
+    consultations: IResponse[];
+  } | null> {
     const cacheKey = `Consultations pacient: ${user_id}`;
 
     const cacheExecutionTimeBefore = Date.now();
     let consultations = await this.cacheProvider.recover<IResponse[]>(cacheKey);
     const cacheExecutionTimeAfter = Date.now();
+
+    let time = 0;
+    let observation = '';
 
     const user = await this.usersRepository.findById(user_id);
     if (!user) {
@@ -64,17 +70,8 @@ class ListConsultationsService {
           transactionExecutionTime,
         }: IResponseTransaction = JSON.parse(responseTransaction.toString());
 
-        try {
-          await this.metricsRepository.create({
-            user_id,
-            transaction_name: 'Histórico de consultas',
-            transaction_time: `${transactionExecutionTime} ms`,
-            observation: 'Transação na blockchain',
-          });
-        } catch (error) {
-          throw new AppError('Erro ao salvar dados de métricas de desempenho!');
-        }
-
+        observation = 'Transação na Blockchain';
+        time = transactionExecutionTime;
         consultations = asset.consultas;
 
         await this.cacheProvider.save(cacheKey, consultations);
@@ -82,22 +79,11 @@ class ListConsultationsService {
         throw new AppError(error);
       }
     } else {
-      try {
-        await this.metricsRepository.create({
-          user_id,
-          transaction_name: 'Histórico de consultas',
-          transaction_time: `${
-            cacheExecutionTimeAfter - cacheExecutionTimeBefore
-          } ms`,
-          observation:
-            'Busca no cache. Só é feito busca na blockchain, caso insira novos dados!',
-        });
-      } catch (error) {
-        throw new AppError('Erro ao salvar dados de métricas de desempenho!');
-      }
+      time = cacheExecutionTimeAfter - cacheExecutionTimeBefore;
+      observation = 'Busca no cache';
     }
 
-    return consultations;
+    return { observation, time, consultations };
   }
 }
 

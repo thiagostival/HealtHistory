@@ -18,6 +18,7 @@ consultationsRouter.post(
       medico: Joi.string().required(),
       especialidade: Joi.string().required(),
       data: Joi.date().required(),
+      observation: Joi.string().optional(),
     },
   }),
   consultationsController.create,

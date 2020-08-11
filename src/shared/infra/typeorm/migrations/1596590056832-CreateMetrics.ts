@@ -26,6 +26,10 @@ export default class CreateMetrics1596590056832 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'time_total',
+            type: 'varchar',
+          },
+          {
             name: 'observation',
             type: 'varchar',
           },

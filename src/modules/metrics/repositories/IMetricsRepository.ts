@@ -7,6 +7,7 @@ export default interface IMetricsRepository {
     user_id,
     transaction_name,
     transaction_time,
+    time_total,
     observation,
   }: ICreateMetricDTO): Promise<Metrics>;
 }

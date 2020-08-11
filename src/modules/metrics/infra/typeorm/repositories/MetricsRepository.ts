@@ -25,12 +25,14 @@ class MetricsRepository implements IMetricsRepository {
     user_id,
     transaction_name,
     transaction_time,
+    time_total,
     observation,
   }: ICreateMetricDTO): Promise<Metrics> {
     const metric = this.ormRepository.create({
       user_id,
       transaction_name,
       transaction_time,
+      time_total,
       observation,
     });
 

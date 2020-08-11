@@ -1,6 +1,6 @@
-import IResponseConnect from '@modules/consultations/dtos/IResponseConnect';
+import IResponseConnect from '@shared/dtos/IResponseConnect';
 import ICreateConsulta from '@modules/consultations/dtos/ICreateConsulta';
-import ConnectToNetwork from '@modules/consultations/infra/Fabric/ConnectToNetwork';
+import ConnectToNetwork from '@shared/infra/Fabric/ConnectToNetwork';
 import IFabricProvider from '../models/IFabricProvider';
 
 class Fabric implements IFabricProvider {
@@ -42,6 +42,7 @@ class Fabric implements IFabricProvider {
         consultation.medico,
         consultation.especialidade,
         consultation.date,
+        consultation.observation,
       ];
       const response = await networkObj.contract.submitTransaction(
         'updateHealthPacientes',

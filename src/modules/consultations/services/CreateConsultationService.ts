@@ -5,7 +5,6 @@ import AppError from '@shared/errors/AppError';
 import ConnectToNetwork from '@shared/infra/Fabric/ConnectToNetwork';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import IMetricsRepository from '@modules/metrics/repositories/IMetricsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import IResponseTransaction from '@shared/dtos/IResponseTransaction';
 
@@ -14,6 +13,7 @@ interface IRequestDTO {
   medico: string;
   especialidade: string;
   data: Date;
+  observation: string;
 }
 
 @injectable()
@@ -21,9 +21,6 @@ class CreateConsultationService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
-
-    @inject('MetricsRepository')
-    private metricsRepository: IMetricsRepository,
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
@@ -34,7 +31,8 @@ class CreateConsultationService {
     medico,
     especialidade,
     data,
-  }: IRequestDTO): Promise<string> {
+    observation,
+  }: IRequestDTO): Promise<{ time: number; message: string }> {
     const connectToNetwork = new ConnectToNetwork();
 
     const user = await this.usersRepository.findById(user_id);
@@ -47,7 +45,7 @@ class CreateConsultationService {
 
       const dateFormatted = format(data, "dd/MM/yyyy 'às' HH:mm:ss'h'");
       const date = dateFormatted.toString();
-      const args = [user.CPF, medico, especialidade, date];
+      const args = [user.CPF, medico, especialidade, date, observation];
 
       const responseTransaction = await networkObj.contract.submitTransaction(
         'updateHealthPacientes',
@@ -58,20 +56,12 @@ class CreateConsultationService {
         responseTransaction.toString(),
       );
 
-      try {
-        await this.metricsRepository.create({
-          user_id,
-          transaction_name: 'Adicionar Consulta',
-          transaction_time: `${transactionExecutionTime} ms`,
-          observation: 'Transação na blockchain',
-        });
-      } catch (error) {
-        throw new AppError('Erro ao salvar dados de métricas de desempenho!');
-      }
-
       await this.cacheProvider.invalidate(`Consultations pacient: ${user_id}`);
 
-      return 'Sucesso no cadastro!';
+      return {
+        time: transactionExecutionTime,
+        message: 'Sucesso no cadastro!',
+      };
     } catch (error) {
       throw new AppError('Erro na inserção da Consulta. Tente Novamente!');
     }
