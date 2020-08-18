@@ -21,7 +21,7 @@ class ConnectToNetworkService {
         discovery: gatewayDiscovery,
       });
 
-      const network = await gateway.getNetwork('mychannel');
+      const network = await gateway.getNetwork('channel1');
       const contract = await network.getContract('scontract');
 
       const networkObj = {

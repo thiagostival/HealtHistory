@@ -1,4 +1,4 @@
-import { CouchDBWalletOptions, CouchDBWallet } from 'fabric-network';
+import { FileSystemWallet } from 'fabric-network';
 import path from 'path';
 import fs from 'fs';
 
@@ -19,10 +19,7 @@ const ccpPath = path.join(process.cwd(), connection_file);
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
-const url: CouchDBWalletOptions = {
-  url: 'http://0.0.0.0:17134',
-};
-
-const wallet = new CouchDBWallet(url);
+const walletPath = path.join(process.cwd(), 'wallet');
+const wallet = new FileSystemWallet(walletPath);
 
 export { wallet, ccp };

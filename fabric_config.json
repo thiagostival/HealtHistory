@@ -1,8 +1,8 @@
 {
-  "connection_file": "BlockHealth - Org1_connection.json",
+  "connection_file": "org1msp_profile.json",
   "appAdmin": "admin",
   "appAdminSecret": "adminpw",
-  "orgMSPID": "Org1MSP",
-  "caName": "http://0.0.0.0:17130",
-  "gatewayDiscovery": { "enabled": true, "asLocalhost": true }
+  "orgMSPID": "org1msp",
+  "caName": "https://184.173.1.29:30086",
+  "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
 }
