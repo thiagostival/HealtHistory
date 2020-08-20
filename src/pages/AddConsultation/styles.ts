@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { Platform } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { RectButton } from 'react-native-gesture-handler';
 
@@ -29,7 +28,7 @@ export const HeaderTitle = styled.Text`
 export const ContainerForm = styled.View`
   flex: 1;
   justify-content: center;
-  padding: 30px 30px ${Platform.OS === 'android' ? 150 : 40}px;
+  padding: 20px 30px;
 `;
 
 export const Calendar = styled.View`

@@ -39,7 +39,7 @@ const Statistics: React.FC = () => {
   }, [goBack]);
 
   useEffect(() => {
-    api.get('metrics').then((response) => {
+    api.get('/metrics').then((response) => {
       setMetrics(response.data);
       setLoad(false);
     });
@@ -63,11 +63,11 @@ const Statistics: React.FC = () => {
       <List
         data={metrics}
         keyExtractor={(itemMetrics) => itemMetrics.id}
-        ListHeaderComponent={(
+        ListHeaderComponent={
           <ObservationText>
             *Tempo, aproximado, gasto no Servidor
           </ObservationText>
-        )}
+        }
         renderItem={({ item: itemMetrics, index }) => (
           <InfoCard
             style={index === metrics.length - 1 ? { marginBottom: 50 } : {}}

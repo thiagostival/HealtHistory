@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
@@ -60,29 +61,31 @@ const Dashboard: React.FC = () => {
         </ProfileButton>
       </Header>
 
-      <TitleOptions>Opções</TitleOptions>
+      <ScrollView>
+        <TitleOptions>Opções</TitleOptions>
 
-      <OptionsContainer>
-        <OptionsButton onPress={navigateToHistoryConsultations}>
-          <OptionsButtonIcon source={recordsImg} />
-          <OptionsButtonText>Histórico de Consultas</OptionsButtonText>
-        </OptionsButton>
+        <OptionsContainer>
+          <OptionsButton onPress={navigateToHistoryConsultations}>
+            <OptionsButtonIcon source={recordsImg} />
+            <OptionsButtonText>Histórico de Consultas</OptionsButtonText>
+          </OptionsButton>
 
-        <OptionsButton onPress={navigateToAddConsultation}>
-          <OptionsButtonIcon source={consultationImg} />
-          <OptionsButtonText>Adicionar Consulta</OptionsButtonText>
-        </OptionsButton>
+          <OptionsButton onPress={navigateToAddConsultation}>
+            <OptionsButtonIcon source={consultationImg} />
+            <OptionsButtonText>Adicionar Consulta</OptionsButtonText>
+          </OptionsButton>
 
-        <OptionsButton onPress={navigateToStatistics}>
-          <OptionsButtonIcon source={metricsImg} />
-          <OptionsButtonText>Estatísticas</OptionsButtonText>
-        </OptionsButton>
+          <OptionsButton onPress={navigateToStatistics}>
+            <OptionsButtonIcon source={metricsImg} />
+            <OptionsButtonText>Estatísticas</OptionsButtonText>
+          </OptionsButton>
 
-        <OptionsButton onPress={navigateToAbout}>
-          <OptionsButtonIcon source={informationImg} />
-          <OptionsButtonText>Sobre o Projeto</OptionsButtonText>
-        </OptionsButton>
-      </OptionsContainer>
+          <OptionsButton onPress={navigateToAbout}>
+            <OptionsButtonIcon source={informationImg} />
+            <OptionsButtonText>Sobre o Projeto</OptionsButtonText>
+          </OptionsButton>
+        </OptionsContainer>
+      </ScrollView>
     </Container>
   );
 };

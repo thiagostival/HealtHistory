@@ -189,10 +189,7 @@ const AddConsultation: React.FC = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         enabled
       >
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ flex: 1 }}
-        >
+        <ScrollView keyboardShouldPersistTaps="handled">
           <ContainerForm>
             <Calendar>
               <Title>Data da Consulta</Title>

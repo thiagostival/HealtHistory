@@ -40,7 +40,7 @@ export const ObservationText = styled.Text`
 export const InfoCard = styled.View`
   background: #00396d;
   padding-bottom: 20px;
-  margin: 10px 5px;
+  margin: 10px 0;
   border-radius: 10px;
 `;
 
@@ -48,7 +48,6 @@ export const Info = styled.View`
   flex-direction: row;
   justify-content: flex-start;
   margin-top: 10px;
-  margin-right: 5px;
   margin-left: 5px;
 `;
 

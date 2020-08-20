@@ -67,31 +67,31 @@ const About: React.FC = () => {
             poder verificar a viabilidade da arquitetura.
           </Paragrafs>
           <Paragrafs>
-            {'     '}Para verificar essa viabilidade, é utilizado nessa
-            aplicação o tempo gasto na rede blockchain e o tempo total no
-            servidor node. Assim é possível verificar se é viável uma aplicação
-            desse porte.
+            {'     '}Para verificar a viabilidade, é registrado na aplicação o
+            tempo gasto na rede blockchain e o tempo total no servidor NodeJS.
+            Assim é possível verificar se é viável uma aplicação desse porte.
           </Paragrafs>
           <Paragrafs>
             {'     '}A aplicação é estruturada da seguinte forma:
           </Paragrafs>
           <Paragrafs>
-            {'          '}App {' -> '} Servidor Node {' -> '} Blockchain
+            {'          '}App {' -> '} Servidor NodeJS {' -> '} Blockchain
           </Paragrafs>
           <Paragrafs>
-            {'     '}A aplicação comunica com o servidor Node, como qualquer
-            aplicação mobile, e o servidor Node comunica com a rede blockchain,
-            através do Smart Contract, para realizar as operações desenvolvidas.
+            {'     '}A aplicação comunica com o servidor NodeJS, como qualquer
+            aplicação mobile, e o servidor NodeJS comunica com a rede
+            blockchain, através do Smart Contract, para realizar as operações
+            desenvolvidas.
           </Paragrafs>
           <Paragrafs>
             {'     '}Os blocos da blockchain além de conter seus atributos
-            básicos possui o CPF do paciente, onde esse é o ID único do bloco, e
-            um array de consultas, onde cada posição do array é um objeto com os
+            básicos possui o CPF do paciente, o qual é o ID único do bloco, e um
+            array de consultas, onde cada posição do array é um objeto com os
             dados da consulta, nome e especialidade do médico, data da consulta
             e observações.
           </Paragrafs>
           <Paragrafs>
-            {'     '}O paciente ao se cadastrar, é criado um bloco na rede
+            {'     '}Quando o paciente se cadastra, é criado um bloco na rede
             blockchain para ele, e quando ele insere dados de consultas por
             exemplo, esses dados são armazenados no array, e o bloco é
             atualizado na rede blockchain.

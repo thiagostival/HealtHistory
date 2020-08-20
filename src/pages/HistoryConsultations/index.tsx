@@ -40,7 +40,7 @@ const HistoryConsultations: React.FC = () => {
   }, [goBack]);
 
   useEffect(() => {
-    api.get('consultations').then((response) => {
+    api.get('/consultations').then((response) => {
       setHistory(response.data);
       setLoad(false);
     });
