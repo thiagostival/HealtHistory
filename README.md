@@ -12,13 +12,9 @@ O HealtHistory é uma forma de avaliação da viabilidade prática de uma aplica
 
 Para a rede blockchain, foi utilizada a [Hyperledger](https://www.hyperledger.org/), que é uma solução open source de redes blockchains. Que é utilizada na cloud da IBM, onde ela disponibiliza um plugin para o Visual Studio Code ([disponível aqui](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform)), onde é possível criar uma rede localmente e instanciar contratos inteligentes, e assim poder fazer os testes, e esse mesmo contrato inteligente pode ser instanciado na cloud da IBM.
 
-<br>
-
 ### :iphone: Demo
 
 ![](./img/video.gif)
-
-<br>
 
 ### :rocket: Tecnologias usadas
 Este projeto foi desenvolvido com as seguintes tecnologias:
@@ -89,8 +85,6 @@ Para rodar o projeto:
         - `yarn android` -> Para iniciar o aplicativo no avd ou android;
       - IOS:
         - `yarn ios` -> Para iniciar o aplicativo no emulador;
-
-<br>
 
 ### :mortar_board: Sobre o projeto
 
