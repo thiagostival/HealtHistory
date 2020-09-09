@@ -1,8 +1,0 @@
-{
-  "connection_file": "org1msp_profile.json",
-  "appAdmin": "admin",
-  "appAdminSecret": "adminpw",
-  "orgMSPID": "org1msp",
-  "caName": "https://184.173.1.29:30086",
-  "gatewayDiscovery": { "enabled": true, "asLocalhost": false }
-}
